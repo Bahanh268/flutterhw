@@ -7,12 +7,20 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  static final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.light);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.light(useMaterial3: true),
-      darkTheme: ThemeData.dark(useMaterial3: true),
-      home: const MyHomePage(title: 'Salad'),
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: themeNotifier,
+      builder: (_, ThemeMode currentMode, __) {
+        return  MaterialApp(
+          theme: ThemeData.light(useMaterial3: true),
+          darkTheme: ThemeData.dark(useMaterial3: true),
+          themeMode: currentMode,
+          home: const MyHomePage(title: 'Salad'),
+        );
+      }
     );
   }
 }
@@ -43,7 +51,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void handleBack() {}
 
-  void handleSearch() {}
+  void handleSearch() {
+    MyApp.themeNotifier.value =
+    MyApp.themeNotifier.value == ThemeMode.light
+        ? ThemeMode.dark
+        : ThemeMode.light;
+  }
 
   void handleSort() {}
 
