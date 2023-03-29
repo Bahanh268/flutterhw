@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutterhw/main.dart';
 
-class ListLayout extends StatefulWidget {
-  const ListLayout({super.key, required this.title});
+class ListLayoutPage extends StatefulWidget {
+  const ListLayoutPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<ListLayout> createState() => _ListLayoutState();
+  State<ListLayoutPage> createState() => _ListLayoutState();
 }
 
-class _ListLayoutState extends State<ListLayout> {
-
+class _ListLayoutState extends State<ListLayoutPage> {
   final List<String> entries = <String>[
     'https://picsum.photos/1000',
   ];
@@ -27,11 +26,12 @@ class _ListLayoutState extends State<ListLayout> {
     'https://picsum.photos/1000',
   ];
 
-  void handleBack() {}
+  void handleBack() {
+    Navigator.pop(context);
+  }
 
   void handleSearch() {
-    MyApp.themeNotifier.value =
-    MyApp.themeNotifier.value == ThemeMode.light
+    MyApp.themeNotifier.value = MyApp.themeNotifier.value == ThemeMode.light
         ? ThemeMode.dark
         : ThemeMode.light;
   }
@@ -49,7 +49,7 @@ class _ListLayoutState extends State<ListLayout> {
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         leading:
-        IconButton(icon: const Icon(Icons.west), onPressed: handleBack),
+            IconButton(icon: const Icon(Icons.west), onPressed: handleBack),
         actions: <Widget>[
           IconButton(icon: const Icon(Icons.search), onPressed: handleSearch)
         ],
@@ -191,7 +191,7 @@ class _ListLayoutState extends State<ListLayout> {
                               children: <Widget>[
                                 const CircleAvatar(
                                   backgroundImage:
-                                  NetworkImage('https://picsum.photos/400'),
+                                      NetworkImage('https://picsum.photos/400'),
                                   radius: 8,
                                 ),
                                 Container(
